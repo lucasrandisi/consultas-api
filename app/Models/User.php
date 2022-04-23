@@ -14,5 +14,5 @@ class User extends Authenticatable
 
 	protected $table = 'usuarios';
 
-	protected $guarded = ['password'];
+	protected $guarded = [];
 }
