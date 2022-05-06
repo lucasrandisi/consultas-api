@@ -34,4 +34,8 @@ Route::middleware('auth:sanctum')->group(function() {
 	Route::prefix('users')->group(function() {
 		Route::post('', [UsersController::class, 'create']);
 	});
+
+	Route::prefix('materias')->group(function() {
+		Route::post('', [MateriasController::class, 'create']);
+	});
 });
