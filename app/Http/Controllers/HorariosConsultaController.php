@@ -5,14 +5,35 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateHorarioConsultaRequest;
 use App\Http\Requests\DeleteHorarioConsultaRequest;
 use App\Models\HorarioConsulta;
-use App\Models\Materia;
 use App\Models\Parametro;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 
 class HorariosConsultaController extends Controller
 {
-	public function index() {
-		return HorarioConsulta::all();
+	public function index(Request $request) {
+		$filters = $request->input('filters', []);
+		$orders = $request->input('orders', []);
+
+		$query = HorarioConsulta::query();
+		$query->whereDate('date_hour', '>=', new Carbon());
+
+		foreach ($filters as $key => $value) {
+			if (in_array($key, ['materia_id', 'user_id'])) {
+				$query->where($key, '=', $value);
+			}
+		}
+
+		$query->orderBy('date_hour');
+
+		foreach ($orders as $key => $value) {
+			if (in_array($key, ['date_hour'])) {
+				$query->orderBy($key, $value);
+			}
+		}
+
+		return $query->get();
 	}
 
 	public function create(CreateHorarioConsultaRequest $request) {
