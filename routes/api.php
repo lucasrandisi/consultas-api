@@ -32,8 +32,24 @@ Route::get('horarios-consulta', [HorariosConsultaController::class, 'index']);
 Route::middleware('auth:sanctum')->group(function() {
 	Route::get('me', [AuthController::class, 'me']);
 
-	Route::apiResource('users', UsersController::class);
-	Route::apiResource('materias', MateriasController::class);
-	Route::apiResource('horarios-consulta', HorariosConsultaController::class);
-	Route::apiResource('parametros', ParametrosController::class);
+	Route::prefix('users')->group(function() {
+		Route::get('', [UsersController::class, 'index']);
+		Route::post('', [UsersController::class, 'create']);
+	});
+
+	Route::prefix('materias')->group(function() {
+		Route::get('', [MateriasController::class, 'index']);
+		Route::post('', [MateriasController::class, 'create']);
+	});
+
+	Route::prefix('horarios-consulta')->group(function() {
+		Route::get('', [HorariosConsultaController::class, 'index']);
+		Route::post('', [HorariosConsultaController::class, 'create']);
+		Route::delete('', [HorariosConsultaController::class, 'delete']);
+	});
+
+	Route::prefix('parametros')->group(function() {
+		Route::get('', [ParametrosController::class, 'index']);
+		Route::post('', [ParametrosController::class, 'create']);
+	});
 });

@@ -9,4 +9,5 @@ class HorarioConsulta extends Model
 {
 	protected $table = 'horarios_consultas';
 	protected $guarded = [];
+	public $timestamps = false;
 }

@@ -13,7 +13,7 @@ class UsersController extends Controller
 		return User::all();
 	}
 
-	public function store(CreateUserRequest $request) {
+	public function create(CreateUserRequest $request) {
 		$data = $request->validated();
 
 

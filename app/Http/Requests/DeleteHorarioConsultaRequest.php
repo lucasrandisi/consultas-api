@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateHorarioConsultaRequest extends FormRequest
+class DeleteHorarioConsultaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,10 @@ class CreateHorarioConsultaRequest extends FormRequest
     public function rules()
     {
         return [
-            'day' => ['required', Rule::in(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])],
+            'user_id' => 'required|exists:usuarios,id',
+			'materia_id' => 'required|exists:materias,id',
+			'day' => ['required', Rule::in(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])],
 			'hour' => 'required|integer|min:7|max:23',
-			'user_id' => 'required|exists:usuarios,id',
-			'materia_id' => 'required|exists:materias,id'
         ];
     }
 }
