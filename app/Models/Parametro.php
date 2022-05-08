@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HorarioConsulta extends Model
+class Parametro extends Model
 {
-	protected $table = 'horarios_consultas';
+	protected $table = 'parametros';
+	public $timestamps = false;
 	protected $guarded = [];
 }

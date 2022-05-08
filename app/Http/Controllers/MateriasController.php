@@ -22,7 +22,7 @@ class MateriasController extends Controller
 		return $query->get();
 	}
 
-	public function create(CreateMateriaRequest $request) {
+	public function store(CreateMateriaRequest $request) {
 		return Materia::create($request->validated());
 	}
 }
