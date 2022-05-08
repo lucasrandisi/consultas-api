@@ -16,7 +16,6 @@ class UsersController extends Controller
 	public function create(CreateUserRequest $request) {
 		$data = $request->validated();
 
-
 		$user = UsersService::create($data);
 
 		return new UserResource($user);

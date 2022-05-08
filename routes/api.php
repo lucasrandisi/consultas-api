@@ -38,12 +38,14 @@ Route::middleware('auth:sanctum')->group(function() {
 	});
 
 	Route::prefix('materias')->group(function() {
-		Route::get('', [MateriasController::class, 'index']);
 		Route::post('', [MateriasController::class, 'create']);
 	});
 
+	Route::prefix('consultas')->group(function() {
+		Route::post('', [ConsultasController::class, 'create']);
+	});
+
 	Route::prefix('horarios-consulta')->group(function() {
-		Route::get('', [HorariosConsultaController::class, 'index']);
 		Route::post('', [HorariosConsultaController::class, 'create']);
 		Route::delete('', [HorariosConsultaController::class, 'delete']);
 	});
