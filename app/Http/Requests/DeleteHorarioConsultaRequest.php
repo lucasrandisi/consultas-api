@@ -25,7 +25,7 @@ class DeleteHorarioConsultaRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:usuarios,id',
+            'profesor_id' => 'required|exists:usuarios,id',
 			'materia_id' => 'required|exists:materias,id',
 			'day' => ['required', Rule::in(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])],
 			'hour' => 'required|integer|min:7|max:23',

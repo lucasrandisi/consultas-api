@@ -27,7 +27,7 @@ class CreateHorarioConsultaRequest extends FormRequest
         return [
             'day' => ['required', Rule::in(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])],
 			'hour' => 'required|integer|min:7|max:23',
-			'user_id' => 'required|exists:usuarios,id',
+			'profesor_id' => 'required|exists:usuarios,id',
 			'materia_id' => 'required|exists:materias,id'
         ];
     }

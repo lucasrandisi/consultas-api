@@ -38,6 +38,7 @@ class HorariosConsultaController extends Controller
 
 	public function create(CreateHorarioConsultaRequest $request) {
 		$day = $request->input('day');
+		$hour = $request->input('hour');
 
 		$inicioCicloLectivo = new Carbon(Parametro::find(Parametro::INICIO_CICLO_LECTIVO)->value);
 		$finCicloLectivo = new Carbon(Parametro::find(Parametro::FIN_CICLO_LECTIVO)->value);
@@ -46,13 +47,12 @@ class HorariosConsultaController extends Controller
 			$inicioCicloLectivo->copy() :
 			$inicioCicloLectivo->copy()->next($day);
 
-
 		while ($date->lessThanOrEqualTo($finCicloLectivo)) {
-			$date->hour = $request->input('hour');
+			$date->hour = $hour;
 
 			HorarioConsulta::create([
 				'date_hour' => $date,
-				'user_id' => $request->input('user_id'),
+				'profesor_id' => $request->input('profesor_id'),
 				'materia_id' => $request->input('materia_id'),
 			]);
 
@@ -65,7 +65,7 @@ class HorariosConsultaController extends Controller
 		$hour = $request->input('hour');
 
 		$horariosConsulta = HorarioConsulta::where([
-			'user_id' => $request->input('user_id'),
+			'profesor_id' => $request->input('profesor_id'),
 			'materia_id' => $request->input('materia_id')
 		])->get();
 
