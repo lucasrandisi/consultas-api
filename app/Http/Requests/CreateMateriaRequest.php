@@ -25,8 +25,6 @@ class CreateMateriaRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-			'fecha_inicio_cursado' => 'required|date_format:Y-m-d|before:fecha_fin_cursado',
-			'fecha_fin_cursado' => 'required|date_format:Y-m-d'
 		];
     }
 }

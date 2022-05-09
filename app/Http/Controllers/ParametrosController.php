@@ -11,7 +11,7 @@ class ParametrosController extends Controller
 		return Parametro::all();
 	}
 
-    public function store(CreateParametroRequest $request) {
+    public function create(CreateParametroRequest $request) {
 		return Parametro::create($request->validated());
 	}
 }

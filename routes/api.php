@@ -25,7 +25,12 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::get('users', [UsersController::class, 'index']);
 Route::get('materias', [MateriasController::class, 'index']);
-Route::get('consultas', array(ConsultasController::class, 'index'));
+
+
+Route::get('consultas', [ConsultasController::class, 'index']);
+Route::post('consultas', [ConsultasController::class, 'create']);
+
+
 Route::get('horarios-consulta', [HorariosConsultaController::class, 'index']);
 
 
@@ -39,10 +44,6 @@ Route::middleware('auth:sanctum')->group(function() {
 
 	Route::prefix('materias')->group(function() {
 		Route::post('', [MateriasController::class, 'create']);
-	});
-
-	Route::prefix('consultas')->group(function() {
-		Route::post('', [ConsultasController::class, 'create']);
 	});
 
 	Route::prefix('horarios-consulta')->group(function() {
