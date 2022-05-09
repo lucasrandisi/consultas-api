@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateConsultaRequest;
 use App\Models\Consulta;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ConsultasController extends Controller
@@ -19,7 +21,6 @@ class ConsultasController extends Controller
 			}
 		}
 
-
 		foreach ($orders as $key => $value) {
 			if (in_array($key, ['created_at'])) {
 				$query->orderBy($key, $value);
@@ -29,7 +30,14 @@ class ConsultasController extends Controller
 		return $query->get();
 	}
 
-	public function create() {
+	public function create(CreateConsultaRequest $request) {
+    	$email = $request->input('email');
 
+		$user = User::where(['email' => $email])->first();
+
+		return Consulta::create([
+			'horario_consulta_id' => $request->input('horario_consulta_id'),
+			'estudiante_id' => $user->id
+		]);
 	}
 }
