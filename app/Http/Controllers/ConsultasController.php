@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BusinessException;
 use App\Http\Requests\CreateConsultaRequest;
 use App\Models\Consulta;
 use App\Models\User;
@@ -34,6 +35,10 @@ class ConsultasController extends Controller
     	$email = $request->input('email');
 
 		$user = User::where(['email' => $email])->first();
+
+		if (!$user) {
+			throw new BusinessException('El email ingresado no se encuentra registrado');
+		}
 
 		return Consulta::create([
 			'horario_consulta_id' => $request->input('horario_consulta_id'),
