@@ -15,6 +15,8 @@ class HorariosConsultaController extends Controller
 	public function index(Request $request) {
 		$filters = $request->input('filters', []);
 		$orders = $request->input('orders', []);
+		$limit = $request->input('limit', 20);
+
 
 		$query = HorarioConsulta::query();
 		$query->whereDate('date_hour', '>=', new Carbon());
@@ -32,6 +34,8 @@ class HorariosConsultaController extends Controller
 				$query->orderBy($key, $value);
 			}
 		}
+
+		$query->limit($limit);
 
 		return $query->get();
 	}
