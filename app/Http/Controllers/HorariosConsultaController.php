@@ -20,7 +20,7 @@ class HorariosConsultaController extends Controller
 		$query->whereDate('date_hour', '>=', new Carbon());
 
 		foreach ($filters as $key => $value) {
-			if (in_array($key, ['materia_id', 'user_id'])) {
+			if (in_array($key, ['materia_id', 'profesor_id'])) {
 				$query->where($key, '=', $value);
 			}
 		}
