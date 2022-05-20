@@ -13,7 +13,7 @@ class CreateConsultaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class CreateConsultaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required',
+			'horario_consulta_id' => 'required|exists:horarios_consultas,id'
         ];
     }
 }
