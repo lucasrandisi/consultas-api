@@ -15,4 +15,8 @@ class User extends Authenticatable
 	protected $table = 'usuarios';
 
 	protected $guarded = [];
+
+	public function rol() {
+		return $this->belongsTo(Rol::class);
+	}
 }

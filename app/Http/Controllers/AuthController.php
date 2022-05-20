@@ -16,6 +16,8 @@ class AuthController extends Controller
 
 		$user = AuthService::login($email, $password);
 
+		$user->load('rol');
+
 		return response()->json([
 			'access_token' => $user->createToken('Bearer')->plainTextToken,
 			'user' => new UserResource($user)

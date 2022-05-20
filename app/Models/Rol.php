@@ -10,4 +10,6 @@ class Rol extends Model
 	const ROL_ADMIN = 1;
 	const ROL_PROFESOR = 2;
 	const ROL_ALUMNO = 3;
+
+	protected $table = "roles";
 }
