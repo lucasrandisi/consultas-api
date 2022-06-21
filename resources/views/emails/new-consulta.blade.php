@@ -1,0 +1,1 @@
+<p>Nueva inscripción a su consulta del día {{ $consulta->horarioConsulta->date_hour }}</p>

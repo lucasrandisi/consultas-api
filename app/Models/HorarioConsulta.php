@@ -10,4 +10,8 @@ class HorarioConsulta extends Model
 	protected $table = 'horarios_consultas';
 	protected $guarded = [];
 	public $timestamps = false;
+
+	public function profesor() {
+		return $this->belongsTo(User::class, 'profesor_id');
+	}
 }

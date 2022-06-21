@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\BusinessException;
 use App\Http\Requests\CreateConsultaRequest;
+use App\Mail\NewConsulta;
 use App\Models\Consulta;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ConsultasController extends Controller
 {
@@ -40,9 +42,13 @@ class ConsultasController extends Controller
 			throw new BusinessException('El email ingresado no se encuentra registrado');
 		}
 
-		return Consulta::create([
+		$consulta = Consulta::create([
 			'horario_consulta_id' => $request->input('horario_consulta_id'),
 			'estudiante_id' => $user->id
 		]);
+
+		Mail::to($consulta->horarioConsulta->profesor->email)->send(new NewConsulta($consulta));
+
+		return $consulta;
 	}
 }

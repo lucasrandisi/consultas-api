@@ -9,4 +9,8 @@ class Consulta extends Model
 {
     protected $table = 'consultas';
     protected $guarded = [];
+
+	public function horarioConsulta() {
+		return $this->belongsTo(HorarioConsulta::class, 'horario_consulta_id');
+	}
 }
