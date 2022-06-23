@@ -49,7 +49,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
 	Route::prefix('horarios-consulta')->group(function() {
 		Route::post('', [HorariosConsultaController::class, 'create']);
-		Route::delete('', [HorariosConsultaController::class, 'delete']);
+		Route::delete('batch', [HorariosConsultaController::class, 'deleteBatch']);
+		Route::delete('{horarioConsulta}', [HorariosConsultaController::class, 'delete']);
 	});
 
 	Route::prefix('parametros')->group(function() {

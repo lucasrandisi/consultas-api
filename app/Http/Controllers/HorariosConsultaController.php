@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateHorarioConsultaRequest;
-use App\Http\Requests\DeleteHorarioConsultaRequest;
+use App\Http\Requests\DeleteHorarioConsultaBatchRequest;
 use App\Models\HorarioConsulta;
 use App\Models\Parametro;
 use Carbon\Carbon;
@@ -64,7 +64,11 @@ class HorariosConsultaController extends Controller
 		}
 	}
 
-	public function delete(DeleteHorarioConsultaRequest $request) {
+	public function delete(HorarioConsulta $horarioConsulta) {
+		$horarioConsulta->delete();
+	}
+
+	public function deleteBatch(DeleteHorarioConsultaBatchRequest $request) {
 		$day = $request->input('day');
 		$hour = $request->input('hour');
 
