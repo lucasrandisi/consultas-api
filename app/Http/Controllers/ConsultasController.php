@@ -3,32 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\BusinessException;
+use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\CreateConsultaRequest;
 use App\Mail\NewConsulta;
 use App\Models\Consulta;
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ConsultasController extends Controller
 {
     public function index(Request $request) {
-    	$filters = $request->input('filters', []);
-    	$orders = $request->input('orders', []);
+    	/** @var User $currentUser */
+		$currentUser = Auth::user();
+
+		if ($currentUser->rol_id !== Rol::ROL_PROFESOR) {
+			throw new UnauthorizedException("No presenta el rol de profesor");
+		}
 
 		$query = Consulta::query();
 
-		foreach ($filters as $key => $value) {
-			if (in_array($key, ['estudiante_id', 'horario_consulta_id'])) {
-				$query->where($key, '=', $value);
-			}
-		}
+		$query->join(
+			'horarios_consultas',
+			'horarios_consultas.id',
+			'=',
+			'consultas.horario_consulta_id'
+		);
 
-		foreach ($orders as $key => $value) {
-			if (in_array($key, ['created_at'])) {
-				$query->orderBy($key, $value);
-			}
-		}
+		$query->where("horarios_consultas.profesor_id", '=', $currentUser->id);
+
+		$query->selectRaw('
+			consultas.horario_consulta_id as horario_consulta_id, 
+			COUNT(consultas.id) as inscriptos
+		');
+		$query->groupBy('consultas.horario_consulta_id');
+		$query->with('horarioConsulta.materia');
 
 		return $query->get();
 	}

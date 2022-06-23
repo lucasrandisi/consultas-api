@@ -11,6 +11,10 @@ class HorarioConsulta extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 
+	public function materia() {
+		return $this->belongsTo(Materia::class, 'materia_id');
+	}
+
 	public function profesor() {
 		return $this->belongsTo(User::class, 'profesor_id');
 	}

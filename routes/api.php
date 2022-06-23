@@ -27,7 +27,6 @@ Route::get('users', [UsersController::class, 'index']);
 Route::get('materias', [MateriasController::class, 'index']);
 
 
-Route::get('consultas', [ConsultasController::class, 'index']);
 Route::post('consultas', [ConsultasController::class, 'create']);
 
 
@@ -52,6 +51,9 @@ Route::middleware('auth:sanctum')->group(function() {
 		Route::delete('batch', [HorariosConsultaController::class, 'deleteBatch']);
 		Route::delete('{horarioConsulta}', [HorariosConsultaController::class, 'delete']);
 	});
+
+	Route::get('consultas', [ConsultasController::class, 'index']);
+
 
 	Route::prefix('parametros')->group(function() {
 		Route::get('', [ParametrosController::class, 'index']);
