@@ -24,6 +24,14 @@ class AuthController extends Controller
 		]) ;
 	}
 
+	public function logout() {
+		/** @var User $currentUser */
+		$currentUser = Auth::user();
+
+		$currentUser->currentAccessToken()->delete();
+	}
+
+
 	public function me() {
 		/** @var User $user */
 		$user = Auth::user();
