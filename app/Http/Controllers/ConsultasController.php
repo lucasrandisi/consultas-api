@@ -58,7 +58,7 @@ class ConsultasController extends Controller
 			'estudiante_id' => $user->id
 		]);
 
-		Mail::to($consulta->horarioConsulta->profesor->email)->send(new NewConsulta($consulta));
+		// Mail::to($consulta->horarioConsulta->profesor->email)->send(new NewConsulta($consulta));
 
 		return $consulta;
 	}
