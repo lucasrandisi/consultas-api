@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateHorarioConsultaRequest;
 use App\Http\Requests\DeleteHorarioConsultaBatchRequest;
+use App\Mail\ConsultaCanceladaEmail;
 use App\Models\Consulta;
 use App\Models\HorarioConsulta;
 use App\Models\Parametro;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 class HorariosConsultaController extends Controller
@@ -80,8 +82,9 @@ class HorariosConsultaController extends Controller
 		// Enviar mail a estudiantes notificando la eliminación del horario de consulta
 		$estudiantes = User::whereIn('id', $estudiantesId)->get();
 
-		return $estudiantes;
-
+		foreach ($estudiantes as $estudiante) {
+			Mail::to('lucasrandisi@gmail.com')->send(new ConsultaCanceladaEmail($horarioConsulta));
+		}
 	}
 
 	public function deleteBatch(DeleteHorarioConsultaBatchRequest $request) {
