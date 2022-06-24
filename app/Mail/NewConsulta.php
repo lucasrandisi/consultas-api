@@ -31,7 +31,8 @@ class NewConsulta extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.new-consulta')
+        return $this->subject('Nueva inscripción a consulta')
+			->view('emails.new-consulta')
 			->with(['consulta' => $this->consulta]);
     }
 }
