@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateHorarioConsultaRequest;
 use App\Http\Requests\DeleteHorarioConsultaBatchRequest;
+use App\Models\Consulta;
 use App\Models\HorarioConsulta;
 use App\Models\Parametro;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -65,7 +67,21 @@ class HorariosConsultaController extends Controller
 	}
 
 	public function delete(HorarioConsulta $horarioConsulta) {
+		$estudiantesId= Consulta::where('horario_consulta_id', '=', $horarioConsulta->id)
+			->select('estudiante_id')
+			->groupBy('estudiante_id')
+			->get();
+
+		Consulta::where('horario_consulta_id', '=', $horarioConsulta->id)
+			->delete();
+
 		$horarioConsulta->delete();
+
+		// Enviar mail a estudiantes notificando la eliminación del horario de consulta
+		$estudiantes = User::whereIn('id', $estudiantesId)->get();
+
+		return $estudiantes;
+
 	}
 
 	public function deleteBatch(DeleteHorarioConsultaBatchRequest $request) {
