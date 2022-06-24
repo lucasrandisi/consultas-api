@@ -16,7 +16,10 @@ class UsersController extends Controller
 	public function create(CreateUserRequest $request) {
 		$data = $request->validated();
 
+		/** @var User $user */
 		$user = UsersService::create($data);
+
+		$user->load('rol');
 
 		return new UserResource($user);
 	}
