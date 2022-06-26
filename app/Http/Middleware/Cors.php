@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Fruitcake\Cors\CorsService;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Request;
@@ -17,7 +16,6 @@ class Cors extends HandleCors
 	 */
 	protected $container;
 
-	/** @var CorsService  */
 	protected $cors;
 
 	/**
