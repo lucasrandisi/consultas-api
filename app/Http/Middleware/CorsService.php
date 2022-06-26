@@ -126,7 +126,7 @@ class CorsService
 	{
 		$this->configureAllowedOrigin($response, $request);
 
-		if ($response->headers->has('Access-Control-Allow-Origin')) {
+		if ($response->headers->has('Access-Control-Allow-Origin') || config('app.env') === 'production') {
 			$this->configureAllowCredentials($response, $request);
 
 			$this->configureAllowedMethods($response, $request);
