@@ -1,5 +1,4 @@
 /node_modules
-/app/Http/Middleware/Cors.php
 /public/hot
 /public/storage
 /storage/*.key
