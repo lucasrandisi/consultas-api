@@ -3,22 +3,40 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Request;
 
-class Cors
+class Cors extends HandleCors
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        return $next($request)
-			->header("Access-Control-Allow-Origin", "http://urlfronted.example")
-			->header("Access-Control-Request-Headers", "authorization,content-type")
-			->header("Access-Control-Request-Method", "POST");
-    }
+	/**
+	 * Handle the incoming request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Closure  $next
+	 * @return \Illuminate\Http\Response
+	 */
+	public function handle($request, Closure $next)
+	{
+		if (! $this->hasMatchingPath($request)) {
+			return $next($request);
+		}
+
+		$this->cors->setOptions($this->container['config']->get('cors', []));
+
+		if ($this->cors->isPreflightRequest($request)) {
+			$response = $this->cors->handlePreflightRequest($request);
+
+			$this->cors->varyHeader($response, 'Access-Control-Request-Method');
+
+			return $response;
+		}
+
+		$response = $next($request);
+
+		if ($request->getMethod() === 'OPTIONS') {
+			$this->cors->varyHeader($response, 'Access-Control-Request-Method');
+		}
+
+		return $this->cors->addActualRequestHeaders($response, $request);
+	}
 }
