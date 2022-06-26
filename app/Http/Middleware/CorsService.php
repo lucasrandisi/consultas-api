@@ -177,7 +177,9 @@ class CorsService
 	{
 		if ($this->allowAllOrigins === true && !$this->supportsCredentials) {
 			// Safe+cacheable, allow everything
-			$response->headers->set('Access-Control-Allow-Origin', '*');
+			if (config('app.env') !== 'production') {
+				$response->headers->set('Access-Control-Allow-Origin', '*');
+			}
 		} elseif ($this->isSingleOriginAllowed()) {
 			// Single origins can be safely set
 			$response->headers->set('Access-Control-Allow-Origin', array_values($this->allowedOrigins)[0]);
