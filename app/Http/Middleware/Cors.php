@@ -16,6 +16,7 @@ class Cors extends HandleCors
 	 */
 	protected $container;
 
+	/** @var CorsService $cors */
 	protected $cors;
 
 	/**
