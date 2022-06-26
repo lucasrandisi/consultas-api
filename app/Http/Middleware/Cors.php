@@ -28,7 +28,6 @@ class Cors extends HandleCors
 
 			$this->cors->varyHeader($response, 'Access-Control-Request-Method');
 
-			$response->headers->remove('Access-Control-Allow-Origin');
 
 			return $response;
 		}
@@ -39,7 +38,6 @@ class Cors extends HandleCors
 			$this->cors->varyHeader($response, 'Access-Control-Request-Method');
 		}
 
-		$response->headers->remove('Access-Control-Allow-Origin');
 
 		return $this->cors->addActualRequestHeaders($response, $request);
 	}
