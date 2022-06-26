@@ -51,6 +51,10 @@ class Cors extends HandleCors
 
 			$this->cors->varyHeader($response, 'Access-Control-Request-Method');
 
+			if ($response->headers->has('Access-Control-Allow-Origin')) {
+				//$response->headers->remove('Access-Control-Allow-Origin');
+			}
+
 			return $response;
 		}
 
