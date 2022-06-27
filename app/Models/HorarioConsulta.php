@@ -18,4 +18,8 @@ class HorarioConsulta extends Model
 	public function profesor() {
 		return $this->belongsTo(User::class, 'profesor_id');
 	}
+
+	public function consultas() {
+		return $this->hasMany(Consulta::class);
+	}
 }
