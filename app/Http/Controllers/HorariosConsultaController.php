@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateHorarioConsultaRequest;
 use App\Http\Requests\DeleteHorarioConsultaBatchRequest;
+use App\Http\Resources\MateriaResource;
 use App\Mail\ConsultaCanceladaEmail;
 use App\Models\Consulta;
 use App\Models\HorarioConsulta;
@@ -40,8 +41,11 @@ class HorariosConsultaController extends Controller
 		}
 
 		$query->limit($limit);
+		$query->with('materia');
 
-		return $query->get();
+		$materias = $query->get();
+
+		return $materias;
 	}
 
 	public function create(CreateHorarioConsultaRequest $request) {
