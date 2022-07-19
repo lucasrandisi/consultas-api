@@ -24,7 +24,14 @@ class CreateMateriaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:materias,name',
 		];
     }
+
+	public function messages()
+	{
+		return [
+			'name.unique' => 'Ya existe una materia con ese nombre',
+		];
+	}
 }
