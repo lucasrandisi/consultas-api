@@ -43,6 +43,7 @@ class HorariosConsultaController extends Controller
 		$query->limit($limit);
 		$query->with('materia');
 		$query->with('consultas');
+		$query->with('profesor');
 
 		$materias = $query->get();
 
