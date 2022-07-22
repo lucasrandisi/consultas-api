@@ -59,7 +59,7 @@ class ConsultasController extends Controller
 		])->first();
 
 		if ($consulta) {
-			throw new BusinessException('Ya se encuentra registrado a la consulta.');
+			throw new BusinessException('Ya se encuentra registrado a la consulta');
 		}
 
 		$consulta = Consulta::create([
