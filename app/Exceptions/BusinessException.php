@@ -15,6 +15,6 @@ class BusinessException extends \Exception
 		return response()->json([
 			'class' => static::class,
 			'message' => $this->message,
-		], 400);
+		], 200);
 	}
 }
