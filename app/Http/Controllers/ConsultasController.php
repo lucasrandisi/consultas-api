@@ -53,6 +53,15 @@ class ConsultasController extends Controller
 			throw new BusinessException('El email ingresado no se encuentra registrado');
 		}
 
+		$consulta = Consulta::where([
+			'horario_consulta_id' => $request->input('horario_consulta_id'),
+			'estudiante_id' => $user->id,
+		])->first();
+
+		if ($consulta) {
+			throw new BusinessException('Ya se encuentra registrado a la consulta.');
+		}
+
 		$consulta = Consulta::create([
 			'horario_consulta_id' => $request->input('horario_consulta_id'),
 			'estudiante_id' => $user->id
