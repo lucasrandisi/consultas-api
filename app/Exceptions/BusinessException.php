@@ -12,9 +12,17 @@ class BusinessException extends \Exception
 	}
 
 	public function render() {
-		return response()->json([
-			'class' => static::class,
-			'message' => $this->message,
-		], 422);
+		return response()->json(
+			[
+				'class' => static::class,
+				'message' => $this->message,
+			],
+			422,
+			[
+				'Access-Control-Allow-Origin' => '*',
+				'Access-Control-Allow-Headers' => '*',
+				'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+			]
+		);
 	}
 }
